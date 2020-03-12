@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Page de
+	{{ product.name }}
+{% endblock %}
+
+{% block body %}
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="{{ path('homepage') }}">Accueil</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('product_category', {'slug': product.category.slug}) }}">{{ product.category.name }}</a>
+		</li>
+		<li class="breadcrumb-item active">{{ product.name }}</li>
+	</ol>
+
+	<h1>{{ product.name }}
+		({{ product.price / 100 }}
+		€)</h1>
+
+	<div class="row">
+		<div class="col-4">
+			<img class="img-fluid" src="{{ product.mainPicture }}" alt="Image de {{ product.name }}">
+		</div>
+		<div class="col">
+			<span class="badge badge-primary">
+				{{ product.category.name }}
+			</span>
+			<p>{{ product.shortDescription }}</p>
+			<a href="#" class="btn btn-success btn-lg">
+				<i class="fas fa-shopping-cart"></i>
+				Ajouter au panier
+			</a>
+		</div>
+	</div>
+{% endblock %}
