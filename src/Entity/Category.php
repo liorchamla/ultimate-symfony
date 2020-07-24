@@ -36,6 +36,11 @@ class Category
      */
     private $products;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="categories")
+     */
+    private $owner;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -88,15 +93,14 @@ class Category
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function getOwner(): ?User
     {
-        if ($this->products->contains($product)) {
-            $this->products->removeElement($product);
-            // set the owning side to null (unless already changed)
-            if ($product->getCategory() === $this) {
-                $product->setCategory(null);
-            }
-        }
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }
