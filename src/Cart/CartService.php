@@ -26,6 +26,11 @@ class CartService
         $this->session->set('cart', $cart);
     }
 
+    public function empty()
+    {
+        $this->saveCart([]);
+    }
+
     public function add(int $id)
     {
         // 1. Retrouver le panier dans la session (sous forme de tableau)
@@ -83,18 +88,30 @@ class CartService
         foreach ($this->getCart() as $id => $qty) {
             $product = $this->productRepository->find($id);
 
+            if (!$product) {
+                continue;
+            }
+
             $total += $product->getPrice() * $qty;
         }
 
         return $total;
     }
 
+    /**
+     * 
+     * @return CartItem[]
+     */
     public function getDetailedCartItems(): array
     {
         $detailedCart = [];
 
         foreach ($this->getCart() as $id => $qty) {
             $product = $this->productRepository->find($id);
+
+            if (!$product) {
+                continue;
+            }
 
             $detailedCart[] = new CartItem($product, $qty);
         }
