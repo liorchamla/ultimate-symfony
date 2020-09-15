@@ -27,3 +27,8 @@ services:
   # please note that last definitions always *replace* previous ones
 
   Cocur\Slugify\Slugify: ~
+
+  App\Stripe\StripeService:
+    arguments:
+      $secretKey: "%env(STRIPE_SECRET_KEY)%"
+      $publicKey: "%env(STRIPE_PUBLIC_KEY)%"
