@@ -34,7 +34,7 @@ class PurchasePersister
             $purchaseItem = new PurchaseItem;
             $purchaseItem->setPurchase($purchase)
                 ->setProduct($cartItem->product)
-                ->setProductName($cartItem->product->getPrice())
+                ->setProductName($cartItem->product->getName())
                 ->setQuantity($cartItem->qty)
                 ->setTotal($cartItem->getTotal())
                 ->setProductPrice($cartItem->product->getPrice());
